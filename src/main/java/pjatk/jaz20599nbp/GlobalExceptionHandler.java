@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler
 {
-    //400
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    //40x
     @ExceptionHandler
     public ResponseEntity<String> handleRuntimeException(RuntimeException e)
     {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request :C Error:" + e.getLocalizedMessage());
-    }
-    //404
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler
-    public ResponseEntity<String> handleNotFoundException(Exception e)
-    {
+        if(e instanceof NullPointerException)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request :C Error:" + e.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nie znaleziono wpisów :C Error: " + e.getLocalizedMessage());
+    }
+    //50x
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler
+    public ResponseEntity<String> handleInternalServerError(Exception ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Server is down :C Error:" + ex.getLocalizedMessage());
     }
 }

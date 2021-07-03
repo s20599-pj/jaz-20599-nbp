@@ -25,7 +25,8 @@ public class NbpController
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Nie znaleziono waluty"),
             @ApiResponse(code = 400, message = "Błąd zapytania"),
-            @ApiResponse(code = 200, message = "OK")
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 504, message = "Server nie działa")
     })
     @ApiOperation(value = "Pobierz sredni kurs waluty z podanego zakresu daty", notes = "Podaj walutę, datę początkową oraz końcową zakresu")
     @GetMapping("/{currency}/{start_date}/{end_date}")

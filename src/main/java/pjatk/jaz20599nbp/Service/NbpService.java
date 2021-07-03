@@ -18,9 +18,6 @@ public class NbpService
     {
         String url = "http://api.nbp.pl/api/exchangerates/rates/a/" + currency + "/" + start_date +"/" + end_date;
         Root root = restTemplate.getForObject(url, Root.class);
-        return root.getRates()
-                .stream()
-                .mapToDouble(x->x.getMid())
-                .average().orElse(0.0);
+        return root.getRates().stream().mapToDouble(x->x.getMid()).average().orElse(0.0);
     }
 }

@@ -1,16 +1,29 @@
 package pjatk.jaz20599nbp.Class;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Root
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String table;
     private String currency;
     private String code;
+
+    @OneToMany
     private List<Rate> rates;
 
-    public Root(String table, String currency, String code, List<Rate> rates)
+    public Root()
     {
+    }
+
+    public Root(Long id, String table, String currency, String code, List<Rate> rates)
+    {
+        this.id = id;
         this.table = table;
         this.currency = currency;
         this.code = code;
@@ -55,5 +68,15 @@ public class Root
     public void setRates(List<Rate> rates)
     {
         this.rates = rates;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
     }
 }
